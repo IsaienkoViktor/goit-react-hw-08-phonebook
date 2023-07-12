@@ -15,15 +15,3 @@ export const addContacts = async contact => {
 };
 
 export const deleteContact = id => usersApi.delete(`/contacts/${id}`);
-
-// GET
-// /users/:id
-
-// POST
-// /users
-
-// PUT
-// /users/:id
-
-// DELETE
-// /users/:id
