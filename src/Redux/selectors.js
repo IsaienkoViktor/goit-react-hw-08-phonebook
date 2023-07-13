@@ -11,13 +11,3 @@ export const selectFilteredContact = createSelector(
     );
   }
 );
-
-//  const contacts = useSelector(selectContacts);
-//   const filter = useSelector(selectFilter);
-
-//   const getFilterContact = () => {
-//     return contacts.filter(({ name }) =>
-//       name.toLowerCase().includes(filter.toLocaleLowerCase())
-//     );
-//   };
-//   const filteredContacts = getFilterContact();

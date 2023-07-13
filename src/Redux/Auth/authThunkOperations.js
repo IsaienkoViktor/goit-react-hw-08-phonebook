@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addAuthLogin, addAuthUser, setAuthHeader } from 'Requests/api';
+import {
+  addAuthLogin,
+  addAuthLogout,
+  addAuthUser,
+  setAuthHeader,
+} from 'Requests/api';
 
 export const registerThunk = createAsyncThunk(
   'auth/register',
@@ -28,38 +33,30 @@ export const loginThunk = createAsyncThunk(
   }
 );
 
-// export const getContactsThunk = createAsyncThunk(
-//   'contacts/fetchAll',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const response = await fetchContacts();
-//       return response;
-//     } catch (err) {
-//       return rejectWithValue(err.message);
-//     }
-//   }
-// );
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await addAuthLogout(user);
+      setAuthHeader(data.token);
 
-// export const addContactThunk = createAsyncThunk(
-//   'contacts/addContacts',
-//   async (contact, { rejectWithValue }) => {
-//     try {
-//       const response = await addContacts(contact);
-//       return response;
-//     } catch (err) {
-//       return rejectWithValue(err.message);
-//     }
-//   }
-// );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
-// export const deleteContactThunk = createAsyncThunk(
-//   'contacts/deleteContacts',
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       await deleteContact(id);
-//       return id;
-//     } catch (err) {
-//       return rejectWithValue(err.message);
-//     }
-//   }
-// );
+export const fetchAuthThunk = createAsyncThunk(
+  'auth/current',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await fetchAuthThunk();
+      setAuthHeader(data.token);
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
