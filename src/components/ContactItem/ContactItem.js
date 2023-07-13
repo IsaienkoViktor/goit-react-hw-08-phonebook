@@ -1,7 +1,7 @@
 import s from './ContactItem.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteContactThunk } from 'Redux/thunk';
+import { deleteContactThunk } from 'Redux/Contacts/constactsThunkOperations';
 
 export function ContactItem({ id, name, number }) {
   const dispatch = useDispatch();

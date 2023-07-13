@@ -1,4 +1,4 @@
-import { getContactsThunk } from 'Redux/thunk';
+import { getContactsThunk } from 'Redux/Contacts/constactsThunkOperations';
 import { ContactFilter } from 'components/ContactFilter/ContactFilter';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
