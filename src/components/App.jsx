@@ -1,26 +1,17 @@
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactFilter } from './ContactFilter/ContactFilter';
-import { ContactList } from './ContactList/ContactList';
-import Container from './Container/Container';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getContactsThunk } from 'Redux/thunk';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout/Layout';
+import { Login } from 'Pages/Login';
+import { Registration } from 'Pages/Registration';
+import { Contacts } from 'Pages/Contacts';
 
 export const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getContactsThunk());
-  }, [dispatch]);
-
   return (
-    <>
-      <Container>
-        <h1>PhoneBook</h1>
-        <ContactForm />
-        <h2>Contacts</h2>
-        <ContactFilter />
-        <ContactList />
-      </Container>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="register" element={<Registration />} />
+        <Route path="contacts" element={<Contacts />} />
+        <Route path="login" element={<Login />} />
+      </Route>
+    </Routes>
   );
 };
