@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerThunk } from './auththunk';
+import { registerThunk } from './authThunkOperations';
 
 
 const authSliced = createSlice({
