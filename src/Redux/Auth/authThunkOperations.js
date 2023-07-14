@@ -10,7 +10,7 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (user, { rejectWithValue }) => {
     try {
-      const { data } = await addAuthUser(user);
+      const data = await addAuthUser(user);
       setAuthHeader(data.token);
       return data;
     } catch (err) {
@@ -23,7 +23,8 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (user, { rejectWithValue }) => {
     try {
-      const { data } = await addAuthLogin(user);
+      const data = await addAuthLogin(user);
+      console.log(data);
       setAuthHeader(data.token);
 
       return data;
@@ -35,9 +36,9 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk(
   'auth/logout',
-  async (user, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await addAuthLogout(user);
+      const data = await addAuthLogout();
       setAuthHeader(data.token);
 
       return data;
@@ -51,7 +52,7 @@ export const fetchAuthThunk = createAsyncThunk(
   'auth/current',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await fetchAuthThunk();
+      const data = await fetchAuthThunk();
       setAuthHeader(data.token);
 
       return data;

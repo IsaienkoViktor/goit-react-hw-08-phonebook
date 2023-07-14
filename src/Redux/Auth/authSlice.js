@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  fetchAuthThunk,
-  loginThunk,
-  logoutThunk,
-  registerThunk,
-} from './authThunkOperations';
+import { loginThunk, logoutThunk, registerThunk } from './authThunkOperations';
 
 const authSliced = createSlice({
   name: 'auth',
@@ -54,10 +49,6 @@ const authSliced = createSlice({
       })
       .addCase(logoutThunk.pending, state => {
         state.isRefreshing = true;
-      })
-      .addCase(fetchAuthThunk.fulfilled, (state, { payload }) => {
-        state.user = [...state.user, payload];
-        state.token = payload.token;
       }),
 });
 
