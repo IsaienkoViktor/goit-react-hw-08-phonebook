@@ -1,15 +1,37 @@
+import { selectIsLogged } from 'Redux/selectors';
+import { UserMenu } from 'components/UserMenu/UserMenu';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
+import s from './Loyout.module.css';
 
 export const Layout = () => {
+  const isLoggedIn = useSelector(selectIsLogged);
   return (
     <>
-      <header>
+      <header className={s.header}>
         <nav>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/contacts">Contacts</Link>
+          <Link to="/">
+            <button type="button" className={s.btn}>
+              Home
+            </button>
+          </Link>
+          {isLoggedIn ? (
+            <UserMenu />
+          ) : (
+            <>
+              <Link to="/login">
+                <button type="button" className={s.btn}>
+                  Login
+                </button>
+              </Link>
+              <Link to="/register">
+                <button type="button" className={s.btn}>
+                  Register
+                </button>
+              </Link>
+            </>
+          )}
         </nav>
       </header>
       <Outlet />

@@ -3,6 +3,8 @@ import {
   addAuthLogin,
   addAuthLogout,
   addAuthUser,
+  clearAuthHeader,
+  fetchAuthUsers,
   setAuthHeader,
 } from 'Requests/api';
 
@@ -38,26 +40,30 @@ export const logoutThunk = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      const data = await addAuthLogout();
-      setAuthHeader(data.token);
-
-      return data;
+      await addAuthLogout();
+      clearAuthHeader('');
     } catch (err) {
       return rejectWithValue(err.message);
     }
   }
 );
 
-export const fetchAuthThunk = createAsyncThunk(
-  'auth/current',
-  async (_, { rejectWithValue }) => {
+export const refreshThunk = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const {
+      auth: { token },
+    } = thunkAPI.getState();
+    console.log(token);
+    if (!token) {
+      return thunkAPI.rejectWithValue('Unable to find user');
+    }
     try {
-      const data = await fetchAuthThunk();
-      setAuthHeader(data.token);
-
+      setAuthHeader(token);
+      const data = await fetchAuthUsers();
       return data;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(err.message);
     }
   }
 );

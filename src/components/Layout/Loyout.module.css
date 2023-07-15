@@ -1,21 +1,14 @@
-.list {
-  margin-top: 30px;
-  color: var(--secondaryTextColor);
-  font-weight: 500;
-  font-size: 18px;
-}
-
-.item {
+.header {
   display: flex;
   justify-content: space-between;
-}
-
-.item:not(:last-child) {
-  margin-bottom: 10px;
+  align-items: center;
+  border-bottom: 4px solid;
+  border-image: linear-gradient(to right, #52b43a, #f50057, #fcf945, #b345fc)
+    47% 0%;
 }
 
 .btn {
-  padding: 10px 10px;
+  padding: 10px 20px;
   background-color: var(--accentColor);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;

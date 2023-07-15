@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, logoutThunk, registerThunk } from './authThunkOperations';
+import {
+  loginThunk,
+  logoutThunk,
+  refreshThunk,
+  registerThunk,
+} from './authThunkOperations';
 
 const authSliced = createSlice({
   name: 'auth',
@@ -12,6 +17,7 @@ const authSliced = createSlice({
     isLoggedIn: false,
     isRefreshing: false,
     error: null,
+    isLoading: false,
   },
   extraReducers: builder =>
     builder
@@ -34,13 +40,13 @@ const authSliced = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(registerThunk.pending, state => {
-        state.isRefreshing = true; /*!!!!*/
+        state.isLoading = true; /*!!!!*/
       })
       .addCase(loginThunk.pending, state => {
-        state.isRefreshing = true; /*!!!!*/
+        state.isLoading = true; /*!!!!*/
       })
       .addCase(logoutThunk.fulfilled, state => {
-        state.user = null;
+        state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -48,6 +54,18 @@ const authSliced = createSlice({
         state.error = payload;
       })
       .addCase(logoutThunk.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
+        state.user = payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshThunk.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshThunk.pending, state => {
         state.isRefreshing = true;
       }),
 });
