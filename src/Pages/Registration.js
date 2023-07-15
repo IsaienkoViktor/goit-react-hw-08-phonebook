@@ -2,6 +2,7 @@ import { registerThunk } from 'Redux/Auth/authThunkOperations';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import s from './Registration.module.css';
+import Container from 'components/Container/Container';
 
 export const Registration = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,33 @@ export const Registration = () => {
   return (
     <form className={s.form} onSubmit={onSubmit}>
       <label className={s.label}>
-        <input className={s.input} type="text" name="name" required />
-        <input className={s.input} type="email" name="email" required />
-        <input className={s.input} type="password" name="password" required />
+        <input
+          className={s.input}
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          required
+        />
+        <input
+          className={s.input}
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+        <input
+          className={s.input}
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
       </label>
-      <button className={s.btn} type="submit">
-        Register
-      </button>
+      <Container>
+        <button className={s.btn} type="submit">
+          Register
+        </button>
+      </Container>
     </form>
   );
 };
