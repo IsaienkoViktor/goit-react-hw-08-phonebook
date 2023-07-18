@@ -50,20 +50,19 @@ export const logoutThunk = createAsyncThunk(
 
 export const refreshThunk = createAsyncThunk(
   'auth/refresh',
-  async (_, thunkAPI) => {
+  async (_, { getState, rejectWithValue }) => {
     const {
       auth: { token },
-    } = thunkAPI.getState();
-    console.log(token);
+    } = getState();
     if (!token) {
-      return thunkAPI.rejectWithValue('Unable to find user');
+      return rejectWithValue('Unable to find user');
     }
     try {
       setAuthHeader(token);
       const data = await fetchAuthUsers();
       return data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return rejectWithValue(err.message);
     }
   }
 );
